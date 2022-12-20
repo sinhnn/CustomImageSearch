@@ -1131,7 +1131,21 @@ end:
 }
 
 
-
+/**
+ * @brief search hbitmap image in screen
+ *
+ * @param aLeft
+ * @param aTop
+ * @param aRight
+ * @param aBottom
+ * @param nWidth
+ * @param nHeight
+ * @param aVariation    exact or approximate match, should be > 1
+ * @param nBitCounts
+ * @param hbitmap   hbitmap pointer
+ *
+ * @return formated char[50], "0|error message" or "1|foundX|foundY|image_width|image_height"
+ */
 char* WINAPI ImageSearchByBin(int aLeft, int aTop, int aRight, int aBottom, int nWidth, int nHeight, int aVariation, /*UINT nPlanes,*/ UINT nBitCounts, void * hbitmap)
 // Author: ImageSearch was created by Aurelian Maga.
 {
@@ -1245,9 +1259,8 @@ char* WINAPI ImageSearchByBin(int aLeft, int aTop, int aRight, int aBottom, int 
 	// formats might work too.
 	int image_type;
 	//HBITMAP hbitmap_image = LoadPicture(aImageFile, width, height, image_type, icon_number, false);
-	//HBITMAP hbitmap_image = CreateBitmap(nWidth, nHeight, nPlanes, nBitCounts, (void*) imgData);
 	HBITMAP hbitmap_image = (HBITMAP)hbitmap;
-	
+
 	// The comment marked OBSOLETE below is no longer true because the elimination of the high-byte via
 	// 0x00FFFFFF seems to have fixed it.  But "true" is still not passed because that should increase
 	// consistency when GIF/BMP/ICO files are used by a script on both Win9x and other OSs (since the
@@ -1367,7 +1380,7 @@ char* WINAPI ImageSearchByBin(int aLeft, int aTop, int aRight, int aBottom, int 
 	// variation>0 section:
 	//     || image_pixel[j] == trans_color
 	// Without this change, there are cases where variation=0 would find a match but a higher variation
-	// (for the same search) wouldn't. 
+	// (for the same search) wouldn't.
 	for (i = 0; i < image_pixel_count; ++i)
 		image_pixel[i] &= 0x00FFFFFF;
 
@@ -1534,7 +1547,6 @@ end:
 		sprintf_s(answer, "0|unable to found");
 		return answer;
 	}
-				//return "0";
 
 	// Otherwise, success.  Calculate xpos and ypos of where the match was found and adjust
 	// coords to make them relative to the position of the target window (rect will contain
@@ -1560,8 +1572,3 @@ end:
 	return answer /*"0"*/;
 
 }
-
-//char* WINAPI ImageSearchByBin(int aLeft, int aTop, int aRight, int aBottom, int nWidth, int nHeight, UINT nPlanes, UINT nBitCounts, long* hbitdata)
-//{
-//	return "0|0|0|0";
-//}
