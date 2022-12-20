@@ -17,21 +17,21 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            string[] ret =      UseImageSearch     (@"C:\Users\sinhnn\source\repos\Libraries\ImageSearchDLL\ImageSearchDLL\WindowsFormsApp1\sample.png", "30");
+            string[] ret =      UseImageSearch     (@"sample.png", "30");
             System.Diagnostics.Debug.WriteLine(ret);
-            string[] retByBin = UseImageSearchByBin(@"C:\Users\sinhnn\source\repos\Libraries\ImageSearchDLL\ImageSearchDLL\WindowsFormsApp1\sample.png", "30");
+            string[] retByBin = UseImageSearchByBin(@"sample.png", "30");
             System.Diagnostics.Debug.WriteLine(retByBin);
 
             //Application.Run(new Form1());
         }
 
-        [DllImport(@"C:\Users\sinhnn\source\repos\Libraries\ImageSearchDLL\ImageSearchDLL\Release\ImageSearchDLL.dll")]
+        [DllImport(@"..\..\..\Release\ImageSearchDLL.dll")]
         public static extern IntPtr ImageSearch(int x, int y, int right, int bottom, [MarshalAs(UnmanagedType.LPStr)] string imagePath);
 
         //[DllImport(@"C:\Users\sinhnn\source\repos\Libraries\ImageSearchDLL\ImageSearchDLL\Release\ImageSearchDLL.dll")]
         //public static extern IntPtr ImageSearchByBin(int aLeft, int aTop, int aRight, int aBottom ,int nWidth, int nHeight, uint nPlanes, uint nBitCounts, byte[] data);
 
-        [DllImport(@"C:\Users\sinhnn\source\repos\Libraries\ImageSearchDLL\ImageSearchDLL\Release\ImageSearchDLL.dll")]
+        [DllImport(@"..\..\..\Release\ImageSearchDLL.dll")]
         public static extern IntPtr ImageSearchByBin(int aLeft, int aTop, int aRight, int aBottom, int nWidth, int nHeight, int aVariation, uint nBitCounts, IntPtr hbitdata);
 
 
